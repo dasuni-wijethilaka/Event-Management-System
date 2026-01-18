@@ -102,13 +102,6 @@ namespace EventManagementSystem
             lblError.TextAlign = ContentAlignment.MiddleCenter;
             this.Controls.Add(lblError);
 
-            Label lblHint = new Label();
-            lblHint.Font = new Font("Arial", 8);
-            lblHint.ForeColor = Color.Gray;
-            lblHint.Location = new Point(120, 185);
-            lblHint.Size = new Size(200, 15);
-            this.Controls.Add(lblHint);
-
             txtPassword.KeyPress += TxtPassword_KeyPress;
 
             this.Load += (s, e) => txtUsername.Focus();
@@ -133,7 +126,10 @@ namespace EventManagementSystem
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
-            if (username == "admin" && password == "password123")
+            // Use Credentials class to validate
+            bool isValid = Credentials.Validate(username, password);
+
+            if (isValid)
             {
                 lblError.Text = "";
 
@@ -148,7 +144,7 @@ namespace EventManagementSystem
                 };
 
                 dashboard.Show();
-                this.Hide(); 
+                this.Hide();
             }
             else
             {
